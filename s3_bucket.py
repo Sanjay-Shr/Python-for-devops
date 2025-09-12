@@ -10,12 +10,22 @@ def show_buckets(s3):
     for bucket in s3.buckets.all():
         print(bucket.name)
 
-def create_bucket(s3):
+def create_bucket(s3,bucket_name,region):
     s3.create_bucket(Bucket="Python",
                      createBusketConfiguration={
                          'LocationConstraint': 'us-east-2',
                      },)
     print("bucket created successfully")
 
-create_bucket(s3)    
-show_buckets(s3)
+def upload_backup(s3,file_name,bucket_name,key_name):
+    
+    data = open(file_name, 'rb')
+    s3.Bucket(bucket_name).put_object(Key=key_name, Body=data)
+    print("Bucket Uploaded Successfully")
+
+bucket_name = "Python"
+region = "us-east-2"
+# create_bucket(s3,bucket_name,region)    
+# show_buckets(s3)
+file_name = "C:\Users\asksa\OneDrive\Desktop\Python\backups\backup_2025-09-12.tar.gz"
+upload_backup(s3,file_name,bucket_name,"my-backup.tar.gz")
