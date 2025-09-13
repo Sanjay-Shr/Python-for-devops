@@ -6,14 +6,15 @@ boto3 -> used to do AWS tasks using Python
 import boto3
 
 s3 = boto3.resource("s3")
+
 def show_buckets(s3):
     for bucket in s3.buckets.all():
         print(bucket.name)
 
 def create_bucket(s3,bucket_name,region):
-    s3.create_bucket(Bucket="Python",
+    s3.create_bucket(Bucket = bucket_name,
                      createBucketConfiguration={
-                         'LocationConstraint': 'us-east-2',
+                     'LocationConstraint': region,
                      },)
     print("bucket created successfully")
 
