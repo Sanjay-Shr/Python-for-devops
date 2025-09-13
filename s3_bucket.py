@@ -19,8 +19,11 @@ def create_bucket(s3,bucket_name,region):
     print("bucket created successfully")
 
 def upload_backup(s3,file_name,bucket_name,key_name):
-    
-    data = open(file_name, 'rb')
+    """
+    Uploads a given backup file path to a given s3 bucket
+    with a new name (Key)
+    """
+    data = open(file_name, 'rb') # file gets read in binary
     s3.Bucket(bucket_name).put_object(Key=key_name, Body=data)
     print("Bucket Uploaded Successfully")
 
@@ -29,4 +32,4 @@ region = "us-east-2"
 # create_bucket(s3,bucket_name,region)    
 # show_buckets(s3)
 file_name = r"C:\Users\asksa\OneDrive\Desktop\Python\backups\backup_2025-09-12.tar.gz"
-upload_backup(s3,file_name,bucket_name,"my-backup.tar.gz")
+upload_backup(s3,file_name,bucket_name,"my-backup.tar.gz") # function call
